@@ -653,9 +653,6 @@ class Quoine(object):
             order_type = self.ORDER_TYPE_MARKET_RANGE
         return self.create_order(order_type, product_id, self.SIDE_SELL, quantity, price_range=price_range)
 
-    def create_margin_order(self, leverage_level=None, funding_currency=None, order_direction=None):
-        pass
-
     def get_order(self, order_id):
         """Get an order
 
