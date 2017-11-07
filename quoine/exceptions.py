@@ -3,61 +3,58 @@
 
 
 class QuoineAPIException(Exception):
-    """
-    HTTP 400: Bad Request
-      There was an error with the request. The body of the response will have more info
+    """Exception class to handle general API Exceptions
 
-    HTTP 401: Unauthorized
-      Token is invalid. If your API key is wrong a 401 will also be served,
-      so check the response body, it might be that the API_KEY is invalid.
+        `code` values
 
-    HTTP 422: Unprocessable Entity
-      There was an error with the request. The body of the response will have more info. Some possible reasons:
-      - Missing params
-      - The format of data is wrong
+        HTTP 400: Bad Request
+            There was an error with the request. The body of the response will have more info
 
-    HTTP 429: Too Many Requests
-      This status indicates that the user has sent too many requests in a given amount of time
+        HTTP 401: Unauthorized
+            Token is invalid. If your API key is wrong a 401 will also be served,
+            so check the response body, it might be that the API_KEY is invalid.
 
-    HTTP 503: Service Unavailable
-      Many reasons, body will include details
-      - An internal error on Authy.
-      - Your application is accessing an API call you don't have access too.
-      - API usage limit. If you reach API usage limits a 503 will be returned,
-      please wait until you can do the call again.
+        HTTP 422: Unprocessable Entity
+            There was an error with the request. The body of the response will have more info. Some possible reasons:
+            - Missing params
+            - The format of data is wrong
 
-    {
-         "message": "missing parameters"
-    }
-    The message will be in the requester default language. For public api, please request with HTTP_ACCEPT_LANGUAGE header set to your preferred language
+        HTTP 429: Too Many Requests
+            This status indicates that the user has sent too many requests in a given amount of time
 
-    Code
-    Code with the following structure will be returned
+        HTTP 503: Service Unavailable
+            Many reasons, body will include details
+            - An internal error on Authy.
+            - Your application is accessing an API call you don't have access too.
+            - API usage limit. If you reach API usage limits a 503 will be returned,
+            please wait until you can do the call again.
 
-        { “errors”: {“object”: [“errors list”]} }
+        `message` format
 
-        {
-            "errors": {"user":["not_enough_fund"]}
-        }
+        .. code-block:: python
+
+            {
+                "user": ["not_enough_fund"]
+            }
 
     """
     def __init__(self, response):
         try:
             json_res = response.json()
         except ValueError:
-            self.message = response.content
+            self.messages = response.content
         else:
             if 'message' in json_res:
-                self.message = json_res['message']
+                self.messages = json_res
             elif 'errors' in json_res:
-                self.message = json_res['errors']
+                self.messages = json_res['errors']
 
         self.status_code = response.status_code
         self.response = response
         self.request = getattr(response, 'request', None)
 
     def __str__(self):  # pragma: no cover
-        return 'QuoineAPIException: {}'.format(self.message)
+        return 'QuoineAPIException: {}'.format(self.messages)
 
 
 class QuoineRequestException(Exception):

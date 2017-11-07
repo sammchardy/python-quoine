@@ -173,7 +173,7 @@ class Client(object):
 
         :returns: list - List of product dictionaries
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -217,7 +217,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -257,7 +257,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -305,7 +305,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -346,7 +346,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -393,7 +393,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -447,7 +447,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -507,7 +507,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -570,7 +570,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -610,7 +610,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -654,7 +654,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -692,62 +692,6 @@ class Client(object):
 
         return self._get('orders/{}/trades'.format(order_id))
 
-    def get_order_executions(self, order_id, limit=None, page=None):
-        """Get an orders executions
-
-        :param order_id: required
-        :type order_id: int
-        :param limit: Limit execution per request
-        :type limit: int
-        :param page: Page
-        :type page: int
-
-        :returns: API response
-
-        :raises: BinanceResponseException, BinanceAPIException
-
-        .. code-block:: python
-
-            [
-                {
-                    "id": 57896,
-                    "currency_pair_code": "BTCUSD",
-                    "status": "closed",
-                    "side": "short",
-                    "margin_used": "0.83588",
-                    "open_quantity": "0.01",
-                    "close_quantity": "0.0",
-                    "quantity": "0.01",
-                    "leverage_level": 5,
-                    "product_code": "CASH",
-                    "product_id": 1,
-                    "open_price": "417.65",
-                    "close_price": "417.0",
-                    "trader_id": 3020,
-                    "open_pnl": "0.0",
-                    "close_pnl": "0.0065",
-                    "pnl": "0.0065",
-                    "stop_loss": "0.0",
-                    "take_profit": "0.0",
-                    "funding_currency": "USD",
-                    "created_at": 1456250726,
-                    "updated_at": 1456251837,
-                    "close_fee": "0.0",
-                    "total_interest": "0.02",
-                    "daily_interest": "0.02"
-                }
-            ]
-
-        """
-
-        data = {}
-        if limit:
-            data['limit'] = limit
-        if page:
-            data['page'] = page
-
-        return self._get('orders/{}/executions'.format(order_id), data=data)
-
     # Executions Endpoints
 
     def get_my_executions(self, product_id, limit=None, page=None):
@@ -762,7 +706,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -799,7 +743,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -830,7 +774,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -859,7 +803,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -887,7 +831,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -915,7 +859,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -942,7 +886,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -982,7 +926,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1018,7 +962,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1050,7 +994,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1096,7 +1040,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1128,7 +1072,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1180,7 +1124,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1220,7 +1164,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1272,7 +1216,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1335,7 +1279,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1383,7 +1327,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1437,7 +1381,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
@@ -1488,7 +1432,7 @@ class Client(object):
 
         :returns: API response
 
-        :raises: BinanceResponseException, BinanceAPIException
+        :raises: QuoineResponseException, QuoineAPIException
 
         .. code-block:: python
 
