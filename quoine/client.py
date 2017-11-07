@@ -1721,4 +1721,4 @@ class Quoinex(Quoine):
 
 
 class Qryptos(Quoinex):
-    API_URL = 'https://api.qryptos.com/'
+    API_URL = 'https://api.qryptos.com'
