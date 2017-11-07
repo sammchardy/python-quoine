@@ -957,7 +957,7 @@ class Quoine(object):
             ]
         """
 
-        return self._get('fiat_account', True)
+        return self._get('fiat_accounts', True)
 
     def create_fiat_account(self, currency):
         """Create a fiat account for a currency
