@@ -489,7 +489,7 @@ class Client(object):
 
         return self._get('orders/{}'.format(order_id))
 
-    def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False):
+    def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False, limit=None, page=None):
         """Get a list of orders using filters
 
         :param funding_currency: optional - filter orders based on funding currency
@@ -500,6 +500,10 @@ class Client(object):
         :type status: string
         :param with_details: optional - return full order details (attributes between *) including executions
         :type with_details: bool
+        :param limit: optional - page limit
+        :type limit: int
+        :param page: optional - page number
+        :type page: int
 
         :returns: API response
 
@@ -551,6 +555,10 @@ class Client(object):
             data['status'] = status
         if with_details:
             data['with_details'] = 1
+        if limit:
+            data['limit'] = limit
+        if page:
+            data['page'] = page
 
         return self._get('orders', data=data)
 
@@ -742,6 +750,48 @@ class Client(object):
 
     # Executions Endpoints
 
+    def get_my_executions(self, product_id, limit=None, page=None):
+        """Get list of your executions
+
+        :param product_id: required
+        :type product_id: int
+        :param limit: Limit execution per request
+        :type limit: int
+        :param page: Page
+        :type page: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "models": [
+                    {
+                        "id": 1001232,
+                        "quantity": "0.37153179",
+                        "price": "390.0",
+                        "taker_side": "sell",
+                        "my_side": "sell",
+                        "created_at": 1457193798
+                    }
+                ],
+                "current_page": 1,
+                "total_pages": 2
+            }
+        """
+
+        data = {
+            'product_id': product_id
+        }
+        if limit:
+            data['limit'] = limit
+        if page:
+            data['page'] = page
+
+        return self._get('executions/me', True, data=data)
+
     # Accounts Endpoints
 
     def get_fiat_accounts(self):
@@ -774,6 +824,9 @@ class Client(object):
 
     def create_fiat_account(self, currency):
         """Create a fiat account for a currency
+
+        :param currency: required
+        :type currency: string
 
         :returns: API response
 
@@ -824,12 +877,635 @@ class Client(object):
                     "currency_type": "crypto"
                 }
             ]
+
         """
 
         return self._get('crypto_accounts', True)
 
+    def get_account_balances(self):
+        """Get all account balances
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            [
+                {
+                    "currency": "BTC",
+                    "balance": "0.04925688"
+                },
+                {
+                    "currency": "USD",
+                    "balance": "7.17696"
+                },
+                {
+                    "currency": "JPY",
+                    "balance": "356.01377"
+                }
+            ]
+
+        """
+
+        return self._get('accounts/balance', True)
+
+    def get_main_asset(self):
+        """Get name of your main asset with balance
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "currency": "JPY",
+                "total_amount": "23050.04"
+            }
+
+        """
+
+        return self._get('accounts/main_asset', True)
+
     # Assets Lending Endpoints
+
+    def create_load_bid(self, rate, quantity, currency):
+        """Create a loan bid
+
+        :param rate: daily interest rate, e.g 0.0002 (0.02%), must be <= 0.07%
+        :type rate: string
+        :param quantity: amount to lend
+        :type quantity: string
+        :param currency: lending currency (all available in the system except JPY)
+        :type currency: string
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 3580,
+                "bidask_type": "limit",
+                "quantity": "50.0",
+                "currency": "USD",
+                "side": "bid",
+                "filled_quantity": "0.0",
+                "status": "live",
+                "rate": "0.0002",
+                "user_id": 3020
+            }
+
+        """
+
+        data = {
+            'loan_bid': {
+                'rate': rate,
+                'quantity': quantity,
+                'currency': currency
+            }
+        }
+
+        return self._post('loan_bids', True,  json=data)
+
+    def get_loan_bid(self, currency, limit=None, page=None):
+        """Get loan bids
+
+        :param currency: lending currency (all available in the system except JPY)
+        :type currency: string
+        :param limit: Limit execution per request
+        :type limit: int
+        :param page: Page
+        :type page: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 3580,
+                "bidask_type": "limit",
+                "quantity": "50.0",
+                "currency": "USD",
+                "side": "bid",
+                "filled_quantity": "0.0",
+                "status": "live",
+                "rate": "0.0002",
+                "user_id": 3020
+            }
+
+        """
+
+        data = {
+            'currency': currency
+        }
+        if limit:
+            data['limit'] = limit
+        if page:
+            data['page'] = page
+
+        return self._get('loan_bids', True, data=data)
+
+    def close_loan_bid(self, loan_bid_id):
+        """Get loan bids
+
+        :param loan_bid_id: load bid Id
+        :type loan_bid_id: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 3580,
+                "bidask_type": "limit",
+                "quantity": "50.0",
+                "currency": "USD",
+                "side": "bid",
+                "filled_quantity": "0.0",
+                "status": "closed",
+                "rate": "0.0007",
+                "user_id": 3020
+            }
+
+        """
+
+        return self._put('loan_bids/{}/close'.format(loan_bid_id), True)
+
+    def get_loans(self, currency, limit=None, page=None):
+        """Get loans
+
+        :param currency: lending currency (all available in the system except JPY)
+        :type currency: string
+        :param limit: Limit execution per request
+        :type limit: int
+        :param page: Page
+        :type page: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "models": [
+                    {
+                        "id": 144825,
+                        "quantity": "495.1048",
+                        "rate": "0.0005",
+                        "created_at": 1464168246,
+                        "lender_id": 312,
+                        "borrower_id": 5712,
+                        "status": "open",
+                        "currency": "JPY",
+                        "fund_reloaned": true
+                    }
+                ],
+                "current_page": 1,
+                "total_pages": 1
+            }
+
+        """
+
+        data = {
+            'currency': currency
+        }
+        if limit:
+            data['limit'] = limit
+        if page:
+            data['page'] = page
+
+        return self._get('loans', True, data=data)
+
+    def update_loan(self, loan_id, fund_reloaned=None):
+        """Get loans
+
+        TODO: work out what we can update
+
+        :param loan_id: Loan Id
+        :type loan_id: int
+        :param fund_reloaned: optional
+        :type fund_reloaned: bool
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 144825,
+                "quantity": "495.1048",
+                "rate": "0.0005",
+                "created_at": 1464168246,
+                "lender_id": 312,
+                "borrower_id": 5712,
+                "status": "open",
+                "currency": "JPY",
+                "fund_reloaned": false
+            }
+
+        """
+
+        data = {
+        }
+        if fund_reloaned is not None:
+            data['fund_reloaned'] = fund_reloaned
+
+        return self._put('loans/{}'.format(loan_id), True, json=data)
 
     # Trading Accounts Endpoints
 
+    def get_trading_accounts(self):
+        """Get Trading Accounts
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            [
+                {
+                    "id": 1759,
+                    "leverage_level": 10,
+                    "max_leverage_level": 10,
+                    "pnl": "0.0",
+                    "equity": "10000.1773",
+                    "margin": "4.2302",
+                    "free_margin": "9995.9471",
+                    "trader_id": 4807,
+                    "status": "active",
+                    "product_code": "CASH",
+                    "currency_pair_code": "BTCUSD",
+                    "position": "0.1",
+                    "balance": "10000.1773",
+                    "created_at": 1421992165,
+                    "updated_at": 1457242996,
+                    "pusher_channel": "trading_account_1759",
+                    "margin_percent": "0.1",
+                    "product_id": 1,
+                    "funding_currency": "USD",
+                    "base_open_price": 0,
+                    "long_summary": {
+                        "pnl": "0.0",
+                        "position": "0.0",
+                        "base_open_price": "0.0"
+                    },
+                    "short_summary": {
+                        "pnl": "0.0",
+                        "position": "0.0",
+                        "base_open_price": "0.0"
+                    }
+                },
+                #...
+            ]
+
+        """
+
+        return self._get('trading_accounts', True)
+
+    def get_trading_account(self, account_id):
+        """Get a Trading Account
+
+        :param account_id: Trading Account Id
+        :type account_id: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 1759,
+                "leverage_level": 10,
+                "max_leverage_level": 10,
+                "pnl": "0.0",
+                "equity": "10000.1773",
+                "margin": "4.2302",
+                "free_margin": "9995.9471",
+                "trader_id": 4807,
+                "status": "active",
+                "product_code": "CASH",
+                "currency_pair_code": "BTCUSD",
+                "position": "0.1",
+                "balance": "10000.1773",
+                "created_at": 1421992165,
+                "updated_at": 1457242996,
+                "pusher_channel": "trading_account_1759",
+                "margin_percent": "0.1",
+                "product_id": 1,
+                "funding_currency": "USD"
+            }
+
+        """
+
+        return self._get('trading_accounts/{}'.format(account_id), True)
+
+    def update_leverage_level(self, account_id, leverage_level):
+        """Update Trading account leverage level
+
+        :param account_id: Trading Account Id
+        :type account_id: int
+        :param leverage_level: New leverage level
+        :type leverage_level: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 1759,
+                "leverage_level": 25,
+                "max_leverage_level": 25,
+                "pnl": "0.0",
+                "equity": "10000.1773",
+                "margin": "4.2302",
+                "free_margin": "9995.9471",
+                "trader_id": 4807,
+                "status": "active",
+                "product_code": "CASH",
+                "currency_pair_code": "BTCUSD",
+                "position": "0.1",
+                "balance": "10000.1773",
+                "created_at": 1421992165,
+                "updated_at": 1457242996,
+                "pusher_channel": "trading_account_1759",
+                "margin_percent": "0.1",
+                "product_id": 1,
+                "funding_currency": "USD"
+            }
+
+        """
+
+        data = {
+            'trading_account': {
+                'leverage_level': leverage_level
+            }
+        }
+
+        return self._put('trading_accounts/{}'.format(account_id), True, json=data)
+
     # Trade Endpoints
+
+    def get_trades(self, funding_currency=None, status=None, limit=None, page=None):
+        """Get Trades
+
+        :param funding_currency: optional - get trades of a particular funding currency
+        :type funding_currency: string
+        :param status: optional - open or closed
+        :type status: string
+        :param limit: Limit trades per request
+        :type limit: int
+        :param page: Page
+        :type page: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "models": [
+                    {
+                        "id": 57896,
+                        "currency_pair_code": "BTCUSD",
+                        "status": "open",
+                        "side": "short",
+                        "margin_used": "0.83588",
+                        "open_quantity": "0.01",
+                        "close_quantity": "0.0",
+                        "quantity": "0.01",
+                        "leverage_level": 5,
+                        "product_code": "CASH",
+                        "product_id": 1,
+                        "open_price": "417.65",
+                        "close_price": "417.0",
+                        "trader_id": 3020,
+                        "open_pnl": "0.0",
+                        "close_pnl": "0.0",
+                        "pnl": "0.0065",
+                        "stop_loss": "0.0",
+                        "take_profit": "0.0",
+                        "funding_currency": "USD",
+                        "created_at": 1456250726,
+                        "updated_at": 1456251837,
+                        "close_fee": "0.0",
+                        "total_interest": "0.02",
+                        "daily_interest": "0.02"
+                    },
+                    #...
+                ],
+                "current_page": 1,
+                "total_pages": 1
+            }
+
+        """
+
+        data = {}
+        if funding_currency:
+            data['funding_currency'] = funding_currency
+        if status:
+            data['status'] = status
+        if limit:
+            data['limit'] = limit
+        if page:
+            data['page'] = page
+
+        return self._get('trades', True, data=data)
+
+    def close_trade(self, trade_id, closed_quantity=None):
+        """Close a trade
+
+        :param trade_id: Trade Id
+        :type trade_id: int
+        :param closed_quantity: optional - The quantity you want to close
+        :type closed_quantity: string
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 57896,
+                "currency_pair_code": "BTCUSD",
+                "status": "closed",
+                "side": "short",
+                "margin_used": "0.83588",
+                "open_quantity": "0.01",
+                "close_quantity": "0.0",
+                "quantity": "0.01",
+                "leverage_level": 5,
+                "product_code": "CASH",
+                "product_id": 1,
+                "open_price": "417.65",
+                "close_price": "417.0",
+                "trader_id": 3020,
+                "open_pnl": "0.0",
+                "close_pnl": "0.0065",
+                "pnl": "0.0065",
+                "stop_loss": "0.0",
+                "take_profit": "0.0",
+                "funding_currency": "USD",
+                "created_at": 1456250726,
+                "updated_at": 1456251837,
+                "close_fee": "0.0",
+                "total_interest": "0.02",
+                "daily_interest": "0.02"
+            }
+
+        """
+
+        data = {}
+        if closed_quantity:
+            data['closed_quantity'] = closed_quantity
+
+        return self._put('trades/{}/close'.format(trade_id), True, json=data)
+
+    def close_all_trades(self, side=None):
+        """Close all trades
+
+        :param side: optional - Close all trades of this side. Close trades of both side if left blank
+        :type side: string
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            [
+                {
+                    "id": 57896,
+                    "currency_pair_code": "BTCUSD",
+                    "status": "closed",
+                    "side": "short",
+                    "margin_used": "0.83588",
+                    "open_quantity": "0.01",
+                    "close_quantity": "0.0",
+                    "quantity": "0.01",
+                    "leverage_level": 5,
+                    "product_code": "CASH",
+                    "product_id": 1,
+                    "open_price": "417.65",
+                    "close_price": "417.0",
+                    "trader_id": 3020,
+                    "open_pnl": "0.0",
+                    "close_pnl": "0.0065",
+                    "pnl": "0.0065",
+                    "stop_loss": "0.0",
+                    "take_profit": "0.0",
+                    "funding_currency": "USD",
+                    "created_at": 1456250726,
+                    "updated_at": 1456251837,
+                    "close_fee": "0.0",
+                    "total_interest": "0.02",
+                    "daily_interest": "0.02"
+                }
+            ]
+
+        """
+
+        data = {}
+        if side:
+            data['side'] = side
+
+        return self._put('trades/close_all', True, json=data)
+
+    def update_trade(self, trade_id, stop_loss, take_profit):
+        """Close a trade
+
+        :param trade_id: Trade Id
+        :type trade_id: int
+        :param stop_loss: Stop Loss price
+        :type stop_loss: string
+        :param take_profit: Take Profit price
+        :type take_profit: string
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 57897,
+                "currency_pair_code": "BTCUSD",
+                "status": "open",
+                "side": "short",
+                "margin_used": "0.83588",
+                "open_quantity": "0.01",
+                "close_quantity": "0.0",
+                "quantity": "0.01",
+                "leverage_level": 5,
+                "product_code": "CASH",
+                "product_id": 1,
+                "open_price": "417.65",
+                "close_price": "0",
+                "trader_id": 3020,
+                "open_pnl": "0.0",
+                "close_pnl": "0.0065",
+                "pnl": "0.0065",
+                "stop_loss": "300.0",
+                "take_profit": "600.0",
+                "funding_currency": "USD",
+                "created_at": 1456250726,
+                "updated_at": 1456251837,
+                "close_fee": "0.0",
+                "total_interest": "0.02",
+                "daily_interest": "0.02"
+            }
+
+        """
+
+        data = {
+            'trade': {
+                'stop_loss': stop_loss,
+                'take_profit': take_profit
+            }
+        }
+
+        return self._put('trades/{}'.format(trade_id), True, json=data)
+
+    def get_trade_loans(self, trade_id):
+        """Get a trade's loans
+
+        :param trade_id: Trade Id
+        :type trade_id: int
+
+        :returns: API response
+
+        :raises: BinanceResponseException, BinanceAPIException
+
+        .. code-block:: python
+
+            [
+                {
+                    "id": 103520,
+                    "quantity": "42.302",
+                    "rate": "0.0002",
+                    "created_at": 1461998432,
+                    "lender_id": 100,
+                    "borrower_id": 3020,
+                    "status": "open",
+                    "currency": "USD",
+                    "fund_reloaned": true
+                }
+            ]
+
+        """
+
+        return self._get('trades/{}/loans'.format(trade_id), True)
