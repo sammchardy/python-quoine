@@ -1,7 +1,7 @@
 Executions Endpoints
 ====================
 
-`Get Executions <quoine.html#quoine.client.Client.get_executions>`_
+`Get Executions <quoine.html#quoine.client.Quoine.get_executions>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -11,8 +11,8 @@ Executions Endpoints
         limit=200)
 
 
-`Get Executions by Timestamp <quoine.html#quoine.client.Client.get_executions_since_time>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Get Executions by Timestamp <quoine.html#quoine.client.Quoine.get_executions_since_time>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Note this call has an optional limit parameter but no paging.
 
@@ -27,7 +27,7 @@ Note this call has an optional limit parameter but no paging.
         limit=50)
 
 
-`Get My Executions <quoine.html#quoine.client.Client.get_my_executions>`_
+`Get My Executions <quoine.html#quoine.client.Quoine.get_my_executions>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python

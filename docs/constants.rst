@@ -1,5 +1,5 @@
-Contants
-========
+Constants
+=========
 
 Quoine defines constants for Order Types, Order Side and Order Status. These are accessible from the Quoinex or Qryptos classes.
 

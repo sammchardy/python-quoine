@@ -2,23 +2,23 @@ Order Endpoints
 ===============
 
 
-`Fetch all orders <quoine.html#quoine.client.Quoinex.get_orders>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Fetch all orders <quoine.html#quoine.client.Quoine.get_orders>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     orders = client.get_orders(product_id=1, limit=10)
 
-`Fetch an order <quoine.html#quoine.client.Quoinex.get_order>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Fetch an order <quoine.html#quoine.client.Quoine.get_order>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     order = client.get_order(order_id=2157479)
 
 
-`Place an order <quoine.html#quoine.client.Quoinex.create_order>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Place an order <quoine.html#quoine.client.Quoine.create_order>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Place an order**
 
@@ -69,7 +69,7 @@ Use the helper functions to easily place a market buy or sell order
         quantity='100',
         price_range='0.001')
 
-`Edit a live order <quoine.html#quoine.client.Client.update_live_order>`_
+`Edit a live order <quoine.html#quoine.client.Quoine.update_live_order>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -80,15 +80,15 @@ Use the helper functions to easily place a market buy or sell order
         price='0.001')
 
 
-`Cancel an order <quoine.html#quoine.client.Quoinex.cancel_order>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`Cancel an order <quoine.html#quoine.client.Quoine.cancel_order>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     result = client.cancel_order(order_id=2157479)
 
 
-`Get an orders trades <quoine.html#quoine.client.Quoinex.get_order_trades>`_
+`Get an orders trades <quoine.html#quoine.client.Quoine.get_order_trades>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
