@@ -1,1 +1,3 @@
 docs/_build
+.tox
+python_quoine.egg-info
