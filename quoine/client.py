@@ -908,7 +908,7 @@ class Quoine(object):
                     "total_interest": "0.02",
                     "daily_interest": "0.02"
                 }
-            ] 
+            ]
 
         """
 
@@ -1128,7 +1128,7 @@ class Quoine(object):
             }
         }
 
-        return self._post('loan_bids', True,  json=data)
+        return self._post('loan_bids', True, json=data)
 
     def get_loan_bid(self, currency, limit=None, page=None):
         """Get loan bids
