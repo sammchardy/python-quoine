@@ -21,7 +21,9 @@ or `Qryptos <https://accounts.qryptos.com/sign-up?affiliate=PAxghztC67615>`_.
 Generate an API Key
 -------------------
 
-To use signed account methods you are required to `create an API Key  <https://accounts.quoinex.com/settings/api-token>`_.
+To use signed account methods you are required to `create an API Key <https://accounts.quoinex.com/settings/api-token>`_.
+
+Note Qryptos and Quoinex have different API Keys.
 
 Initialise the client
 ---------------------
@@ -33,9 +35,9 @@ Import the client you want to use, the methods available are the same.
 .. code:: python
 
     from quoine.client import Quoinex, Qryptos
-    quoinex_client = Quoinex(api_token_id, api_secret)
+    quoinex_client = Quoinex(quoinex_api_token_id, quoinex_api_secret)
 
-    qryptos_client = Qryptos(api_token_id, api_secret)
+    qryptos_client = Qryptos(qryptos_api_token_id, qryptos_api_secret)
 
     # optionally pass a language parameter
     # ie en, en-us
