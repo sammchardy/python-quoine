@@ -95,8 +95,6 @@ class Quoine(object):
         path = self._create_path(method, path, kwargs['data'])
         uri = self._create_uri(path)
 
-        print("uri:{} path:{}".format(uri, path))
-
         if signed:
             # generate signature
             kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(path)
@@ -109,11 +107,10 @@ class Quoine(object):
         return self._handle_response(response)
 
     def _handle_response(self, response):
-        """Internal helper for handling API responses from the Binance server.
+        """Internal helper for handling API responses from the Quoine server.
         Raises the appropriate exceptions when necessary; otherwise, returns the
         response.
         """
-        print(response.content)
         if not str(response.status_code).startswith('2'):
             raise QuoineAPIException(response)
         try:
@@ -908,7 +905,7 @@ class Quoine(object):
                     "total_interest": "0.02",
                     "daily_interest": "0.02"
                 }
-            ] 
+            ]
 
         """
 
@@ -1128,7 +1125,7 @@ class Quoine(object):
             }
         }
 
-        return self._post('loan_bids', True,  json=data)
+        return self._post('loan_bids', True, json=data)
 
     def get_loan_bid(self, currency, limit=None, page=None):
         """Get loan bids

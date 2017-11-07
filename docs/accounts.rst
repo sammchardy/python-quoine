@@ -2,7 +2,7 @@ Accounts Endpoints
 ==================
 
 
-`Get Fiat accounts <quoine.html#quoine.client.Client.get_fiat_accounts>`_
+`Get Fiat accounts <quoine.html#quoine.client.Quoine.get_fiat_accounts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -10,7 +10,7 @@ Accounts Endpoints
     accounts = client.get_fiat_accounts()
 
 
-`Create Fiat accounts <quoine.html#quoine.client.Client.create_fiat_account>`_
+`Create Fiat accounts <quoine.html#quoine.client.Quoine.create_fiat_account>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -18,7 +18,7 @@ Accounts Endpoints
     account = client.create_fiat_accounts(currency='USD')
 
 
-`Get Crypto accounts <quoine.html#quoine.client.Client.get_crypto_accounts>`_
+`Get Crypto accounts <quoine.html#quoine.client.Quoine.get_crypto_accounts>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -26,7 +26,7 @@ Accounts Endpoints
     accounts = client.get_crypto_accounts()
 
 
-`Get all account balances <quoine.html#quoine.client.Client.get_account_balances>`_
+`Get all account balances <quoine.html#quoine.client.Quoine.get_account_balances>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python

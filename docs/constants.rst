@@ -1,5 +1,5 @@
-Contants
-========
+Constants
+=========
 
 Quoine defines constants for Order Types, Order Side and Order Status. These are accessible from the Quoinex or Qryptos classes.
 
@@ -19,7 +19,7 @@ Quoine defines constants for Order Types, Order Side and Order Status. These are
     ORDER_TYPE_MARKET_RANGE = 'market_with_range'
 
 
-To use in your code import the contents of the `enums.py` module
+Use in your code like below.
 
 .. code:: python
 

@@ -37,13 +37,19 @@ Features
 - Response exception handling
 - Simple market and limit buy functions
 
+TODO
+----
+
+- Websocket implementation
+- Margin order functions
+
 Quick Start
 -----------
 
 Register an account with `Quoinex <https://accounts.quoinex.com/sign-up?affiliate=PAxghztC67615>`_
 or `Qryptos <https://accounts.qryptos.com/sign-up?affiliate=PAxghztC67615>`_.
 
-`Generate an API Key <https://accounts.quoinex.com/settings/api-token>`_ and assign relevant permissions.
+Generate an API Key and assign relevant permissions.
 
 .. code:: bash
 
