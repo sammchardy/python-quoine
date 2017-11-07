@@ -693,7 +693,7 @@ class Quoine(object):
         :type product_id: int
         :param status: optional - filter orders based on status
         :type status: string
-        :param with_details: optional - return full order details (attributes between *) including executions
+        :param with_details: optional - return full order details (attributes between \*) including executions
         :type with_details: bool
         :param limit: optional - page limit
         :type limit: int
@@ -730,9 +730,7 @@ class Quoine(object):
                         "order_fee": "0.0",
                         "margin_used": "0.0",
                         "margin_interest": "0.0",
-                        #*
                         "executions": []
-                        #*
                     }
                 ],
                 "current_page": 1,
