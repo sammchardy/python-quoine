@@ -95,8 +95,6 @@ class Quoine(object):
         path = self._create_path(method, path, kwargs['data'])
         uri = self._create_uri(path)
 
-        print("uri:{} path:{}".format(uri, path))
-
         if signed:
             # generate signature
             kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(path)
@@ -113,7 +111,6 @@ class Quoine(object):
         Raises the appropriate exceptions when necessary; otherwise, returns the
         response.
         """
-        print(response.content)
         if not str(response.status_code).startswith('2'):
             raise QuoineAPIException(response)
         try:
