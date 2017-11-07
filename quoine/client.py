@@ -14,7 +14,7 @@ elif six.PY3:
     from urllib.parse import urlencode
 
 
-class Client(object):
+class Quoine(object):
 
     API_URL = 'https://api.quoine.com'
     API_VERSION = '2'
@@ -1453,3 +1453,11 @@ class Client(object):
         """
 
         return self._get('trades/{}/loans'.format(trade_id), True)
+
+
+class Quoinex(Quoine):
+    pass
+
+
+class Qryptos(Quoinex):
+    API_URL = 'https://api.qryptos.com/'
