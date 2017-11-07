@@ -1089,24 +1089,6 @@ class Quoine(object):
 
         return self._get('accounts/balance', True)
 
-    def get_main_asset(self):
-        """Get name of your main asset with balance
-
-        :returns: API response
-
-        :raises: QuoineResponseException, QuoineAPIException
-
-        .. code-block:: python
-
-            {
-                "currency": "JPY",
-                "total_amount": "23050.04"
-            }
-
-        """
-
-        return self._get('accounts/main_asset', True)
-
     # Assets Lending Endpoints
 
     def create_loan_bid(self, rate, quantity, currency):
