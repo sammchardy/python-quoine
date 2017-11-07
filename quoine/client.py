@@ -387,7 +387,7 @@ class Quoine(object):
 
     # Orders Endpoints
 
-    def create_order(self, order_type, product_id, side, quantity, price, price_range=None):
+    def create_order(self, order_type, product_id, side, quantity, price=None, price_range=None):
         """Create a limit, market or market with range order
 
         :param order_type: required - limit, market or market_with_range
@@ -440,13 +440,196 @@ class Quoine(object):
                 'order_type': order_type,
                 'product_id': product_id,
                 'side': side,
-                'quantity': quantity,
-                'price': price
+                'quantity': quantity
             }
         }
-        if price_range and order_type == 'market_with_range':
+        if price and order_type == self.ORDER_TYPE_LIMIT:
+            data['order']['price'] = price
+        if price_range and order_type == self.ORDER_TYPE_MARKET_RANGE:
             data['order']['price_range'] = price_range
         return self._post('orders', True, json=data)
+
+    def create_limit_buy(self, product_id, quantity, price):
+        """Create a limit buy order
+
+        :param product_id: required
+        :type product_id: int
+        :param quantity: required quantity to buy or sell
+        :type quantity: string
+        :param price: required price per unit of cryptocurrency
+        :type price: string
+
+        :returns: API response
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 2157474,
+                "order_type": "limit",
+                "quantity": "0.01",
+                "disc_quantity": "0.0",
+                "iceberg_total_quantity": "0.0",
+                "side": "sell",
+                "filled_quantity": "0.0",
+                "price": "500.0",
+                "created_at": 1462123639,
+                "updated_at": 1462123639,
+                "status": "live",
+                "leverage_level": 1,
+                "source_exchange": "QUOINE",
+                "product_id": 1,
+                "product_code": "CASH",
+                "funding_currency": "USD",
+                "currency_pair_code": "BTCUSD",
+                "order_fee": "0.0",
+                "margin_used": "0.0",
+                "margin_interest": "0.0",
+                "unwound_trade_leverage_level": null,
+            }
+
+        """
+
+        return self.create_order(self.ORDER_TYPE_LIMIT, product_id, self.SIDE_BUY, quantity, price)
+
+    def create_limit_sell(self, product_id, quantity, price):
+        """Create a limit sell order
+
+        :param product_id: required
+        :type product_id: int
+        :param quantity: required quantity to buy or sell
+        :type quantity: string
+        :param price: required price per unit of cryptocurrency
+        :type price: string
+
+        :returns: API response
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 2157474,
+                "order_type": "limit",
+                "quantity": "0.01",
+                "disc_quantity": "0.0",
+                "iceberg_total_quantity": "0.0",
+                "side": "sell",
+                "filled_quantity": "0.0",
+                "price": "500.0",
+                "created_at": 1462123639,
+                "updated_at": 1462123639,
+                "status": "live",
+                "leverage_level": 1,
+                "source_exchange": "QUOINE",
+                "product_id": 1,
+                "product_code": "CASH",
+                "funding_currency": "USD",
+                "currency_pair_code": "BTCUSD",
+                "order_fee": "0.0",
+                "margin_used": "0.0",
+                "margin_interest": "0.0",
+                "unwound_trade_leverage_level": null,
+            }
+
+        """
+
+        return self.create_order(self.ORDER_TYPE_LIMIT, product_id, 'sell', quantity, price)
+
+    def create_market_buy(self, product_id, quantity, price_range=None):
+        """Create a market buy order
+
+        :param product_id: required
+        :type product_id: int
+        :param quantity: required quantity to buy or sell
+        :type quantity: string
+        :param price_range: optional - slippage of the order.
+        :type price_range: string
+
+        :returns: API response
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 2157474,
+                "order_type": "limit",
+                "quantity": "0.01",
+                "disc_quantity": "0.0",
+                "iceberg_total_quantity": "0.0",
+                "side": "sell",
+                "filled_quantity": "0.0",
+                "price": "500.0",
+                "created_at": 1462123639,
+                "updated_at": 1462123639,
+                "status": "live",
+                "leverage_level": 1,
+                "source_exchange": "QUOINE",
+                "product_id": 1,
+                "product_code": "CASH",
+                "funding_currency": "USD",
+                "currency_pair_code": "BTCUSD",
+                "order_fee": "0.0",
+                "margin_used": "0.0",
+                "margin_interest": "0.0",
+                "unwound_trade_leverage_level": null,
+            }
+
+        """
+
+        order_type = self.ORDER_TYPE_MARKET
+        if price_range:
+            order_type = self.ORDER_TYPE_MARKET_RANGE
+        return self.create_order(order_type, product_id, self.SIDE_BUY, quantity, price_range=price_range)
+
+    def create_market_sell(self, product_id, quantity, price_range=None):
+        """Create a market sell order
+
+        :param product_id: required
+        :type product_id: int
+        :param quantity: required quantity to buy or sell
+        :type quantity: string
+        :param price_range: optional - slippage of the order.
+        :type price_range: string
+
+        :returns: API response
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        .. code-block:: python
+
+            {
+                "id": 2157474,
+                "order_type": "limit",
+                "quantity": "0.01",
+                "disc_quantity": "0.0",
+                "iceberg_total_quantity": "0.0",
+                "side": "sell",
+                "filled_quantity": "0.0",
+                "price": "500.0",
+                "created_at": 1462123639,
+                "updated_at": 1462123639,
+                "status": "live",
+                "leverage_level": 1,
+                "source_exchange": "QUOINE",
+                "product_id": 1,
+                "product_code": "CASH",
+                "funding_currency": "USD",
+                "currency_pair_code": "BTCUSD",
+                "order_fee": "0.0",
+                "margin_used": "0.0",
+                "margin_interest": "0.0",
+                "unwound_trade_leverage_level": null,
+            }
+
+        """
+
+        order_type = self.ORDER_TYPE_MARKET
+        if price_range:
+            order_type = self.ORDER_TYPE_MARKET_RANGE
+        return self.create_order(order_type, product_id, self.SIDE_SELL, quantity, price_range=price_range)
 
     def create_margin_order(self, leverage_level=None, funding_currency=None, order_direction=None):
         pass
