@@ -379,7 +379,7 @@ class Client(object):
         """Create a limit, market or market with range order
 
         :param order_type: required - limit, market or market_with_range
-        :type order_type: stringe
+        :type order_type: string
         :param product_id: required
         :type product_id: int
         :param side: required - buy or sell
@@ -434,7 +434,7 @@ class Client(object):
         }
         if price_range and order_type == 'market_with_range':
             data['order']['price_range'] = price_range
-        return self._post('orders', data=data)
+        return self._post('orders', True, json=data)
 
     def create_margin_order(self, leverage_level=None, funding_currency=None, order_direction=None):
         pass
@@ -636,7 +636,7 @@ class Client(object):
         if price:
             data['order']['price'] = price
 
-        return self._put('orders/{}'.format(order_id), data=data)
+        return self._put('orders/{}'.format(order_id), json=data)
 
     def get_order_trades(self, order_id):
         """Get an orders trades
@@ -796,8 +796,10 @@ class Client(object):
             }
 
         """
-        data = {'currency': currency}
-        return self._post('fiat_accounts', True, data=data)
+        data = {
+            'currency': currency
+        }
+        return self._post('fiat_accounts', True, json=data)
 
     def get_crypto_accounts(self):
         """Get list of crypto accounts
