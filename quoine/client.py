@@ -138,6 +138,8 @@ class Quoine(object):
     def get_products(self):
         """Get the list of all available products
 
+        https://developers.quoine.com/#products
+
         :returns: list - List of product dictionaries
 
         :raises: QuoineResponseException, QuoineAPIException
@@ -179,6 +181,8 @@ class Quoine(object):
 
     def get_product(self, product_id):
         """Get product details
+
+        https://developers.quoine.com/#get-a-product
 
         :param product_id: required
         :type product_id: int
@@ -222,6 +226,8 @@ class Quoine(object):
     def get_order_book(self, product_id, full=False):
         """Get order book for a product
 
+        https://developers.quoine.com/#get-order-book
+
         :param product_id: required
         :type product_id: int
         :param full: default False, optional
@@ -259,6 +265,8 @@ class Quoine(object):
 
     def get_executions(self, product_id, limit=None, page=None):
         """Get a list of recent executions from a product (Executions are sorted in DESCENDING order - Latest first)
+
+        https://developers.quoine.com/#executions
 
         :param product_id: required
         :type product_id: int
@@ -308,6 +316,8 @@ class Quoine(object):
     def get_executions_since_time(self, product_id, timestamp, limit=None):
         """Get a list of executions after a particular time (Executions are sorted in ASCENDING order)
 
+        https://developers.quoine.com/#get-executions-by-timestamp
+
         :param product_id: required
         :type product_id: int
         :param timestamp: Only show executions at or after this timestamp
@@ -353,6 +363,8 @@ class Quoine(object):
     def get_interest_rate_ladder(self, currency):
         """Get a list of executions after a particular time (Executions are sorted in ASCENDING order)
 
+        https://developers.quoine.com/#interest-rates
+
         :param currency: required (i.e. USD)
         :type currency: string
 
@@ -389,6 +401,8 @@ class Quoine(object):
 
     def create_order(self, order_type, product_id, side, quantity, price=None, price_range=None):
         """Create a limit, market or market with range order
+
+        https://developers.quoine.com/#orders
 
         :param order_type: required - limit, market or market_with_range
         :type order_type: string
@@ -452,6 +466,8 @@ class Quoine(object):
     def create_limit_buy(self, product_id, quantity, price):
         """Create a limit buy order
 
+        https://developers.quoine.com/#orders
+
         :param product_id: required
         :type product_id: int
         :param quantity: required quantity to buy or sell
@@ -496,6 +512,8 @@ class Quoine(object):
     def create_limit_sell(self, product_id, quantity, price):
         """Create a limit sell order
 
+        https://developers.quoine.com/#orders
+
         :param product_id: required
         :type product_id: int
         :param quantity: required quantity to buy or sell
@@ -539,6 +557,8 @@ class Quoine(object):
 
     def create_market_buy(self, product_id, quantity, price_range=None):
         """Create a market buy order
+
+        https://developers.quoine.com/#orders
 
         :param product_id: required
         :type product_id: int
@@ -586,6 +606,8 @@ class Quoine(object):
 
     def create_market_sell(self, product_id, quantity, price_range=None):
         """Create a market sell order
+
+        https://developers.quoine.com/#orders
 
         :param product_id: required
         :type product_id: int
@@ -637,6 +659,8 @@ class Quoine(object):
     def get_order(self, order_id):
         """Get an order
 
+        https://developers.quoine.com/#get-an-order
+
         :param order_id: required
         :type order_id: int
 
@@ -686,6 +710,8 @@ class Quoine(object):
 
     def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False, limit=None, page=None):
         """Get a list of orders using filters
+
+        https://developers.quoine.com/#get-orders
 
         :param funding_currency: optional - filter orders based on funding currency
         :type funding_currency: string
@@ -758,6 +784,8 @@ class Quoine(object):
     def cancel_order(self, order_id):
         """Cancel an order
 
+        https://developers.quoine.com/#cancel-an-order
+
         :param order_id: required
         :type order_id: int
 
@@ -793,6 +821,8 @@ class Quoine(object):
 
     def update_live_order(self, order_id, quantity=None, price=None):
         """Update a live order
+
+        https://developers.quoine.com/#edit-a-live-order
 
         :param order_id: required
         :type order_id: int
@@ -842,6 +872,8 @@ class Quoine(object):
     def get_order_trades(self, order_id):
         """Get an orders trades
 
+        https://developers.quoine.com/#get-an-order's-trades
+
         :param order_id: required
         :type order_id: int
 
@@ -890,6 +922,8 @@ class Quoine(object):
     def get_my_executions(self, product_id, limit=None, page=None):
         """Get list of your executions
 
+        https://developers.quoine.com/#get-your-executions
+
         :param product_id: required
         :type product_id: int
         :param limit: Limit execution per request
@@ -934,6 +968,8 @@ class Quoine(object):
     def get_fiat_accounts(self):
         """Get list of fiat accounts
 
+        https://developers.quoine.com/#get-fiat-accounts
+
         :returns: API response
 
         :raises: QuoineResponseException, QuoineAPIException
@@ -961,6 +997,8 @@ class Quoine(object):
 
     def create_fiat_account(self, currency):
         """Create a fiat account for a currency
+
+        https://developers.quoine.com/#create-a-fiat-account
 
         :param currency: required
         :type currency: string
@@ -994,6 +1032,8 @@ class Quoine(object):
     def get_crypto_accounts(self):
         """Get list of crypto accounts
 
+        https://developers.quoine.com/#get-crypto-accounts
+
         :returns: API response
 
         :raises: QuoineResponseException, QuoineAPIException
@@ -1021,6 +1061,8 @@ class Quoine(object):
 
     def get_account_balances(self):
         """Get all account balances
+
+        https://developers.quoine.com/#get-all-account-balances
 
         :returns: API response
 
@@ -1067,8 +1109,10 @@ class Quoine(object):
 
     # Assets Lending Endpoints
 
-    def create_load_bid(self, rate, quantity, currency):
+    def create_loan_bid(self, rate, quantity, currency):
         """Create a loan bid
+
+        https://developers.quoine.com/#create-a-loan-bid
 
         :param rate: daily interest rate, e.g 0.0002 (0.02%), must be <= 0.07%
         :type rate: string
@@ -1110,6 +1154,8 @@ class Quoine(object):
     def get_loan_bid(self, currency, limit=None, page=None):
         """Get loan bids
 
+        https://developers.quoine.com/#get-loan-bids
+
         :param currency: lending currency (all available in the system except JPY)
         :type currency: string
         :param limit: Limit execution per request
@@ -1148,7 +1194,9 @@ class Quoine(object):
         return self._get('loan_bids', True, data=data)
 
     def close_loan_bid(self, loan_bid_id):
-        """Get loan bids
+        """Close loan bid
+
+        https://developers.quoine.com/#close-loan-bid
 
         :param loan_bid_id: load bid Id
         :type loan_bid_id: int
@@ -1177,6 +1225,8 @@ class Quoine(object):
 
     def get_loans(self, currency, limit=None, page=None):
         """Get loans
+
+        https://developers.quoine.com/#get-loans
 
         :param currency: lending currency (all available in the system except JPY)
         :type currency: string
@@ -1222,9 +1272,11 @@ class Quoine(object):
         return self._get('loans', True, data=data)
 
     def update_loan(self, loan_id, fund_reloaned=None):
-        """Get loans
+        """Update a loan
 
-        TODO: work out what we can update
+        https://developers.quoine.com/#update-a-loan
+
+        TODO: work out what else we can update
 
         :param loan_id: Loan Id
         :type loan_id: int
@@ -1262,6 +1314,8 @@ class Quoine(object):
 
     def get_trading_accounts(self):
         """Get Trading Accounts
+
+        https://developers.quoine.com/#get-trading-accounts
 
         :returns: API response
 
@@ -1312,6 +1366,8 @@ class Quoine(object):
     def get_trading_account(self, account_id):
         """Get a Trading Account
 
+        https://developers.quoine.com/#get-a-trading-account
+
         :param account_id: Trading Account Id
         :type account_id: int
 
@@ -1349,6 +1405,8 @@ class Quoine(object):
 
     def update_leverage_level(self, account_id, leverage_level):
         """Update Trading account leverage level
+
+        https://developers.quoine.com/#update-leverage-level
 
         :param account_id: Trading Account Id
         :type account_id: int
@@ -1397,6 +1455,8 @@ class Quoine(object):
 
     def get_trades(self, funding_currency=None, status=None, limit=None, page=None):
         """Get Trades
+
+        https://developers.quoine.com/#get-trades
 
         :param funding_currency: optional - get trades of a particular funding currency
         :type funding_currency: string
@@ -1465,6 +1525,8 @@ class Quoine(object):
     def close_trade(self, trade_id, closed_quantity=None):
         """Close a trade
 
+        https://developers.quoine.com/#close-a-trade
+
         :param trade_id: Trade Id
         :type trade_id: int
         :param closed_quantity: optional - The quantity you want to close
@@ -1515,6 +1577,8 @@ class Quoine(object):
     def close_all_trades(self, side=None):
         """Close all trades
 
+        https://developers.quoine.com/#close-all-trade
+
         :param side: optional - Close all trades of this side. Close trades of both side if left blank
         :type side: string
 
@@ -1563,7 +1627,9 @@ class Quoine(object):
         return self._put('trades/close_all', True, json=data)
 
     def update_trade(self, trade_id, stop_loss, take_profit):
-        """Close a trade
+        """Update a trade
+
+        https://developers.quoine.com/#update-a-trade
 
         :param trade_id: Trade Id
         :type trade_id: int
@@ -1619,6 +1685,8 @@ class Quoine(object):
 
     def get_trade_loans(self, trade_id):
         """Get a trade's loans
+
+        https://developers.quoine.com/#get-a-trade's-loans
 
         :param trade_id: Trade Id
         :type trade_id: int
