@@ -21,6 +21,18 @@ class Quoine(object):
     VENDOR_ID = None
     LANGUAGE = 'en'
 
+    SIDE_BUY = 'buy'
+    SIDE_SELL = 'sell'
+
+    STATUS_FILLED = 'filled'
+    STATUS_LIVE = 'live'
+    STATUS_PARTIAL = 'partially_filled'
+    STATUS_CANCELLED = 'cancelled'
+
+    ORDER_TYPE_LIMIT = 'limit'
+    ORDER_TYPE_MARKET = 'market'
+    ORDER_TYPE_MARKET_RANGE = 'market_with_range'
+
     def __init__(self, api_token_id, api_secret, vendor_id=None, language=None):
         """Quoine API Client constructor
 
