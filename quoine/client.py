@@ -6,12 +6,12 @@ import requests
 import six
 import time
 
+from .exceptions import QuoineAPIException, QuoineRequestException
+
 if six.PY2:
     from urllib import urlencode
 elif six.PY3:
     from urllib.parse import urlencode
-
-from .exceptions import QuoineAPIException, QuoineRequestException
 
 
 class Client(object):

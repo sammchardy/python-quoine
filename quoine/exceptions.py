@@ -42,11 +42,18 @@ class QuoineAPIException(Exception):
 
     """
     def __init__(self, response):
-        json_res = response.json()
+        try:
+            json_res = response.json()
+        except ValueError:
+            self.message = response.content
+        else:
+            if 'message' in json_res:
+                self.message = json_res['message']
+            elif 'errors' in json_res:
+                self.message = json_res['errors']
+
         self.status_code = response.status_code
         self.response = response
-        self.code = json_res['code']
-        self.message = json_res['msg']
         self.request = getattr(response, 'request', None)
 
     def __str__(self):  # pragma: no cover
