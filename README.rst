@@ -37,6 +37,12 @@ Features
 - Response exception handling
 - Simple market and limit buy functions
 
+TODO
+----
+
+- Websocket implementation
+- Margin order functions
+
 Quick Start
 -----------
 
