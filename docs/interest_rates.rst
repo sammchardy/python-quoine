@@ -1,11 +1,7 @@
 Interest Rates Endpoints
 ========================
 
-`Get Interest Rates <quoine.html#quoine.client.Quoine.get_interest_rate_ladder>`_
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Get Interest Rate ladder for a currency
-
-.. code:: python
-
-    ladder = client.get_interest_rate_ladder(currency='USD')
+.. autoclass:: quoine.client.Quoinex
+    :members: get_interest_rate_ladder
+    :noindex:
+    :member-order: bysource

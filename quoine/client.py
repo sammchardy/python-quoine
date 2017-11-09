@@ -137,9 +137,11 @@ class Quoine(object):
 
         https://developers.quoine.com/#products
 
-        :returns: list - List of product dictionaries
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            products = client.get_products()
+
+        :returns: list - List of product dictionaries
 
         .. code-block:: python
 
@@ -172,6 +174,8 @@ class Quoine(object):
                 #...
             ]
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('products')
@@ -184,9 +188,11 @@ class Quoine(object):
         :param product_id: required
         :type product_id: int
 
-        :returns: list - List of product dictionaries
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            product = client.get_product(1)
+
+        :returns: list - List of product dictionaries
 
         .. code-block:: python
 
@@ -216,6 +222,8 @@ class Quoine(object):
                 "exchange_rate": "0.009398151671149725"
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('products/{}'.format(product_id))
@@ -230,9 +238,11 @@ class Quoine(object):
         :param full: default False, optional
         :type full: bool
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order_book = client.get_order_book(1, full=False)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -253,6 +263,8 @@ class Quoine(object):
                 ]
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         data = {'full': 1 if full else 0}
@@ -272,9 +284,13 @@ class Quoine(object):
         :param page: From what page the executions should be returned, e.g if limit=20 and page=2, the response would start from the 21st execution. Default is 1
         :type page: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            executions = client.get_executions(
+                product_id=1,
+                limit=200)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -299,6 +315,8 @@ class Quoine(object):
                 "total_pages": 1686
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         data = {
@@ -313,6 +331,8 @@ class Quoine(object):
     def get_executions_since_time(self, product_id, timestamp, limit=None):
         """Get a list of executions after a particular time (Executions are sorted in ASCENDING order)
 
+        Note this call has an optional limit parameter but no paging.
+
         https://developers.quoine.com/#get-executions-by-timestamp
 
         :param product_id: required
@@ -322,9 +342,17 @@ class Quoine(object):
         :param limit: How many executions should be returned. Must be <= 1000. Default is 20
         :type limit: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            import time
+
+            since = int(time.time())
+            executions = client.get_executions_since_time(
+                product_id=1,
+                timestamp=since,
+                limit=50)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -344,6 +372,8 @@ class Quoine(object):
                     "created_at": 1456705564
                 }
             ]
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -365,9 +395,11 @@ class Quoine(object):
         :param currency: required (i.e. USD)
         :type currency: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            ladder = client.get_interest_rate_ladder(currency='USD')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -390,6 +422,8 @@ class Quoine(object):
                 ]
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('ir_ladders/{}'.format(currency))
@@ -397,7 +431,7 @@ class Quoine(object):
     # Orders Endpoints
 
     def create_order(self, order_type, product_id, side, quantity, price=None, price_range=None):
-        """Create a limit, market or market with range order
+        """Create a limit, market or market with range order. This function gives full flexibility.
 
         https://developers.quoine.com/#orders
 
@@ -414,9 +448,16 @@ class Quoine(object):
         :param price_range: optional For order_type of market_with_range only, slippage of the order.
         :type price_range: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.create_order(
+                type=Quoinex.ORDER_TYPE_LIMIT
+                product_id=1,
+                side=Quoinex.SIDE_BUY,
+                quantity='100',
+                price='0.00001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -443,6 +484,8 @@ class Quoine(object):
                 "margin_interest": "0.0",
                 "unwound_trade_leverage_level": null,
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -472,9 +515,14 @@ class Quoine(object):
         :param price: required price per unit of cryptocurrency
         :type price: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.create_limit_buy(
+                product_id=1,
+                quantity='100',
+                price='0.00001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -501,6 +549,8 @@ class Quoine(object):
                 "margin_interest": "0.0",
                 "unwound_trade_leverage_level": null,
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -518,9 +568,14 @@ class Quoine(object):
         :param price: required price per unit of cryptocurrency
         :type price: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.create_limit_sell(
+                product_id=1,
+                quantity='100',
+                price='0.00001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -547,6 +602,8 @@ class Quoine(object):
                 "margin_interest": "0.0",
                 "unwound_trade_leverage_level": null,
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -564,9 +621,19 @@ class Quoine(object):
         :param price_range: optional - slippage of the order.
         :type price_range: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.create_market_buy(
+                product_id=1,
+                quantity='100')
+
+            # place a market buy with range for slippage
+            order = client.create_market_buy(
+                product_id=1,
+                quantity='100',
+                price_range='0.001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -593,6 +660,8 @@ class Quoine(object):
                 "margin_interest": "0.0",
                 "unwound_trade_leverage_level": null,
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -613,9 +682,19 @@ class Quoine(object):
         :param price_range: optional - slippage of the order.
         :type price_range: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.create_market_sell(
+                product_id=1,
+                quantity='100')
+
+            # place a market sell with range for slippage
+            order = client.create_market_sell(
+                product_id=1,
+                quantity='100',
+                price_range='0.001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -643,6 +722,8 @@ class Quoine(object):
                 "unwound_trade_leverage_level": null,
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         order_type = self.ORDER_TYPE_MARKET
@@ -658,9 +739,11 @@ class Quoine(object):
         :param order_id: required
         :type order_id: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.get_order(order_id=2157479)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -698,12 +781,14 @@ class Quoine(object):
                 ]
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('orders/{}'.format(order_id))
 
     def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False, limit=None, page=None):
-        """Get a list of orders using filters
+        """Get a list of orders using filters with pagination
 
         https://developers.quoine.com/#get-orders
 
@@ -720,9 +805,11 @@ class Quoine(object):
         :param page: optional - page number
         :type page: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            orders = client.get_orders(product_id=1, limit=10)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -757,6 +844,8 @@ class Quoine(object):
                 "total_pages": 1
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         data = {}
@@ -783,9 +872,11 @@ class Quoine(object):
         :param order_id: required
         :type order_id: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            result = client.cancel_order(order_id=2157479)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -808,6 +899,8 @@ class Quoine(object):
                 "funding_currency": "USD",
                 "currency_pair_code": "BTCUSD"
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -825,9 +918,14 @@ class Quoine(object):
         :param price: optional - one or both of quantity or price should be set
         :type price: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            order = client.update_live_order(
+                order_id=2157479,
+                quantity='101',
+                price='0.001')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -850,6 +948,8 @@ class Quoine(object):
                 "funding_currency": "USD",
                 "currency_pair_code": "BTCUSD"
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 
@@ -871,9 +971,11 @@ class Quoine(object):
         :param order_id: required
         :type order_id: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            trades = client.get_order_trades(order_id=2157479)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -907,6 +1009,8 @@ class Quoine(object):
                 }
             ]
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('orders/{}/trades'.format(order_id))
@@ -914,7 +1018,7 @@ class Quoine(object):
     # Executions Endpoints
 
     def get_my_executions(self, product_id, limit=None, page=None):
-        """Get list of your executions
+        """Get list of your executions by product with pagination
 
         https://developers.quoine.com/#get-your-executions
 
@@ -925,9 +1029,11 @@ class Quoine(object):
         :param page: Page
         :type page: int
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            executions = client.get_my_executions(product_id=1)
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -945,6 +1051,9 @@ class Quoine(object):
                 "current_page": 1,
                 "total_pages": 2
             }
+
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         data = {
@@ -964,9 +1073,11 @@ class Quoine(object):
 
         https://developers.quoine.com/#get-fiat-accounts
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            accounts = client.get_fiat_accounts()
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -985,6 +1096,9 @@ class Quoine(object):
                     "free_margin": "10000.1773"
                 }
             ]
+
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('fiat_accounts', True)
@@ -997,9 +1111,11 @@ class Quoine(object):
         :param currency: required
         :type currency: string
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            account = client.create_fiat_accounts(currency='USD')
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -1017,6 +1133,8 @@ class Quoine(object):
                 "free_margin": "0.0"
             }
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
         data = {
             'currency': currency
@@ -1028,9 +1146,11 @@ class Quoine(object):
 
         https://developers.quoine.com/#get-crypto-accounts
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            accounts = client.get_crypto_accounts()
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -1049,6 +1169,8 @@ class Quoine(object):
                 }
             ]
 
+        :raises: QuoineResponseException, QuoineAPIException
+
         """
 
         return self._get('crypto_accounts', True)
@@ -1058,9 +1180,11 @@ class Quoine(object):
 
         https://developers.quoine.com/#get-all-account-balances
 
-        :returns: API response
+        .. code:: python
 
-        :raises: QuoineResponseException, QuoineAPIException
+            account = client.get_account_balances()
+
+        :returns: API response
 
         .. code-block:: python
 
@@ -1078,6 +1202,8 @@ class Quoine(object):
                     "balance": "356.01377"
                 }
             ]
+
+        :raises: QuoineResponseException, QuoineAPIException
 
         """
 

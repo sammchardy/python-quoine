@@ -8,6 +8,7 @@ client module
     :members:
     :undoc-members:
     :show-inheritance:
+    :member-order: bysource
 
 exceptions module
 --------------------------
@@ -16,3 +17,4 @@ exceptions module
     :members:
     :undoc-members:
     :show-inheritance:
+    :member-order: bysource
