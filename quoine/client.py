@@ -33,6 +33,16 @@ class Quoine(object):
     ORDER_TYPE_MARKET = 'market'
     ORDER_TYPE_MARKET_RANGE = 'market_with_range'
 
+    LEVERAGE_LEVEL_2 = 2
+    LEVERAGE_LEVEL_4 = 4
+    LEVERAGE_LEVEL_5 = 5
+    LEVERAGE_LEVEL_10 = 10
+    LEVERAGE_LEVEL_25 = 25
+
+    MARGIN_ORDER_DIRECTION_ONE = 'one_direction'
+    MARGIN_ORDER_DIRECTION_TWO = 'two_direction'
+    MARGIN_ORDER_DIRECTION_NET = 'netout'
+
     def __init__(self, api_token_id, api_secret, vendor_id=None, language=None):
         """Quoine API Client constructor
 
@@ -431,7 +441,7 @@ class Quoine(object):
     # Orders Endpoints
 
     def create_order(self, order_type, product_id, side, quantity, price=None, price_range=None):
-        """Create a limit, market or market with range order. This function gives full flexibility.
+        """Create a limit, market or market with range spot order. This function gives full flexibility for spot orders.
 
         https://developers.quoine.com/#orders
 
@@ -504,7 +514,7 @@ class Quoine(object):
         return self._post('orders', True, json=data)
 
     def create_limit_buy(self, product_id, quantity, price):
-        """Create a limit buy order
+        """Create a limit spot buy order
 
         https://developers.quoine.com/#orders
 
@@ -557,7 +567,7 @@ class Quoine(object):
         return self.create_order(self.ORDER_TYPE_LIMIT, product_id, self.SIDE_BUY, quantity, price)
 
     def create_limit_sell(self, product_id, quantity, price):
-        """Create a limit sell order
+        """Create a limit spot sell order
 
         https://developers.quoine.com/#orders
 
@@ -610,7 +620,7 @@ class Quoine(object):
         return self.create_order(self.ORDER_TYPE_LIMIT, product_id, 'sell', quantity, price)
 
     def create_market_buy(self, product_id, quantity, price_range=None):
-        """Create a market buy order
+        """Create a market spot buy order
 
         https://developers.quoine.com/#orders
 
@@ -671,7 +681,7 @@ class Quoine(object):
         return self.create_order(order_type, product_id, self.SIDE_BUY, quantity, price_range=price_range)
 
     def create_market_sell(self, product_id, quantity, price_range=None):
-        """Create a market sell order
+        """Create a market spot sell order
 
         https://developers.quoine.com/#orders
 
@@ -730,6 +740,92 @@ class Quoine(object):
         if price_range:
             order_type = self.ORDER_TYPE_MARKET_RANGE
         return self.create_order(order_type, product_id, self.SIDE_SELL, quantity, price_range=price_range)
+
+    def create_margin_order(self, order_type, product_id, side, quantity, price, leverage_level=2, price_range=None, funding_currency=None, order_direction=None):
+        """Create a leveraged margin order of type limit, market, or market with range
+
+        Only available on Quoinex
+
+        To trade at any specific leverage level, you will first need to go to margin trading dashboard,
+        click on that leverage level and then confirm to get authorized.
+        Or you can do it using the update_leverage_level function
+
+        https://developers.quoine.com/#orders
+
+        :param order_type: required - limit, market or market_with_range
+        :type order_type: string
+        :param product_id: required
+        :type product_id: int
+        :param side: required - buy or sell
+        :type side: string
+        :param quantity: required quantity to buy or sell
+        :type quantity: string
+        :param price: required price per unit of cryptocurrency
+        :type price: string
+        :param leverage_level: optional - 2, 4, 5, 10 or 25 (default 2)
+        :type leverage_level: int
+        :param price_range: optional - For order_type of market_with_range only, slippage of the order.
+        :type price_range: string
+        :param funding_currency: optional - Currency used to fund the trade with. Default is quoted currency
+        :type funding_currency: string
+
+        .. code:: python
+
+            order = client.create_order(
+                type=Quoinex.ORDER_TYPE_LIMIT
+                product_id=1,
+                side=Quoinex.SIDE_BUY,
+                quantity='100',
+                price='0.00001')
+
+        :returns: API response
+
+        .. code-block:: python
+
+            {
+                "id": 2157474,
+                "order_type": "limit",
+                "quantity": "0.01",
+                "disc_quantity": "0.0",
+                "iceberg_total_quantity": "0.0",
+                "side": "sell",
+                "filled_quantity": "0.0",
+                "price": "500.0",
+                "created_at": 1462123639,
+                "updated_at": 1462123639,
+                "status": "live",
+                "leverage_level": 1,
+                "source_exchange": "QUOINE",
+                "product_id": 1,
+                "product_code": "CASH",
+                "funding_currency": "USD",
+                "currency_pair_code": "BTCUSD",
+                "order_fee": "0.0",
+                "margin_used": "0.0",
+                "margin_interest": "0.0",
+                "unwound_trade_leverage_level": null,
+            }
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        """
+
+        data = {
+            'order': {
+                'order_type': order_type,
+                'product_id': product_id,
+                'side': side,
+                'quantity': quantity,
+                'leverage_level': leverage_level
+            }
+        }
+        if price and order_type == self.ORDER_TYPE_LIMIT:
+            data['order']['price'] = price
+        if price_range and order_type == self.ORDER_TYPE_MARKET_RANGE:
+            data['order']['price_range'] = price_range
+        if funding_currency:
+            data['order']['funding_currency'] = funding_currency
+        return self._post('orders', True, json=data)
 
     def get_order(self, order_id):
         """Get an order
@@ -1209,6 +1305,24 @@ class Quoine(object):
 
         return self._get('accounts/balance', True)
 
+    def get_main_asset(self):
+        """Get name of your main asset with balance
+
+        :returns: API response
+
+        :raises: QuoineResponseException, QuoineAPIException
+
+        .. code-block:: python
+
+            {
+                "currency": "JPY",
+                "total_amount": "23050.04"
+            }
+
+        """
+
+        return self._get('accounts/main_asset', True)
+
     # Assets Lending Endpoints
 
     def create_loan_bid(self, rate, quantity, currency):
@@ -1507,6 +1621,8 @@ class Quoine(object):
 
     def update_leverage_level(self, account_id, leverage_level):
         """Update Trading account leverage level
+
+        Only available on Quoinex
 
         https://developers.quoine.com/#update-leverage-level
 
