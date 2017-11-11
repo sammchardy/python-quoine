@@ -1622,6 +1622,8 @@ class Quoine(object):
     def update_leverage_level(self, account_id, leverage_level):
         """Update Trading account leverage level
 
+        Only available on Quoinex
+
         https://developers.quoine.com/#update-leverage-level
 
         :param account_id: Trading Account Id
