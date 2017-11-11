@@ -33,6 +33,16 @@ class Quoine(object):
     ORDER_TYPE_MARKET = 'market'
     ORDER_TYPE_MARKET_RANGE = 'market_with_range'
 
+    LEVERAGE_LEVEL_2 = 2
+    LEVERAGE_LEVEL_4 = 4
+    LEVERAGE_LEVEL_5 = 5
+    LEVERAGE_LEVEL_10 = 10
+    LEVERAGE_LEVEL_25 = 25
+
+    MARGIN_ORDER_DIRECTION_ONE = 'one_direction'
+    MARGIN_ORDER_DIRECTION_TWO = 'two_direction'
+    MARGIN_ORDER_DIRECTION_NET = 'netout'
+
     def __init__(self, api_token_id, api_secret, vendor_id=None, language=None):
         """Quoine API Client constructor
 
