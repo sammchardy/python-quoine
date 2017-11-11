@@ -441,7 +441,7 @@ class Quoine(object):
     # Orders Endpoints
 
     def create_order(self, order_type, product_id, side, quantity, price=None, price_range=None):
-        """Create a limit, market or market with range order. This function gives full flexibility.
+        """Create a limit, market or market with range spot order. This function gives full flexibility for spot orders.
 
         https://developers.quoine.com/#orders
 
