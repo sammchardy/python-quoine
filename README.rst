@@ -22,6 +22,9 @@ Welcome to python-quoine v0.1.1
 
 This is an unofficial Python wrapper for the `Quoinex and Qryptos exchanges REST API v2 <https://developers.quoine.com/v2>`_. I am in no way affiliated with Quoine, Quoinex or Qryptos, use at your own risk.
 
+PyPi
+  https://pypi.python.org/pypi/python-quoine
+
 Source code
   https://github.com/sammchardy/python-quoine
 
