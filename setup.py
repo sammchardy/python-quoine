@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='python-quoine',
-    version='0.1.0',
+    version='0.1.1',
     packages=['quoine'],
     description='Quoinex and Qryptos REST API python implementation',
     url='https://github.com/sammchardy/python-quoine',

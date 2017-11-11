@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v0.1.1 - 2017-11-11
+^^^^^^^^^^^^^^^^^^^
+
+**Added**
+
+- Quoinex margin order function
+- Added main asset function
+
 v0.1.0 - 2017-11-07
 ^^^^^^^^^^^^^^^^^^^
 

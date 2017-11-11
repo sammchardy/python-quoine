@@ -1,5 +1,5 @@
 ===============================
-Welcome to python-quoine v0.1.0
+Welcome to python-quoine v0.1.1
 ===============================
 
 .. image:: https://img.shields.io/pypi/v/python-quoine.svg
@@ -36,12 +36,12 @@ Features
 - Simple handling of authentication
 - Response exception handling
 - Simple market and limit buy functions
+- Margin orders for Quoinex
 
 TODO
 ----
 
 - Websocket implementation
-- Margin order functions
 
 Quick Start
 -----------
