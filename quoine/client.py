@@ -514,7 +514,7 @@ class Quoine(object):
         return self._post('orders', True, json=data)
 
     def create_limit_buy(self, product_id, quantity, price):
-        """Create a limit buy order
+        """Create a limit spot buy order
 
         https://developers.quoine.com/#orders
 
@@ -567,7 +567,7 @@ class Quoine(object):
         return self.create_order(self.ORDER_TYPE_LIMIT, product_id, self.SIDE_BUY, quantity, price)
 
     def create_limit_sell(self, product_id, quantity, price):
-        """Create a limit sell order
+        """Create a limit spot sell order
 
         https://developers.quoine.com/#orders
 
@@ -620,7 +620,7 @@ class Quoine(object):
         return self.create_order(self.ORDER_TYPE_LIMIT, product_id, 'sell', quantity, price)
 
     def create_market_buy(self, product_id, quantity, price_range=None):
-        """Create a market buy order
+        """Create a market spot buy order
 
         https://developers.quoine.com/#orders
 
@@ -681,7 +681,7 @@ class Quoine(object):
         return self.create_order(order_type, product_id, self.SIDE_BUY, quantity, price_range=price_range)
 
     def create_market_sell(self, product_id, quantity, price_range=None):
-        """Create a market sell order
+        """Create a market spot sell order
 
         https://developers.quoine.com/#orders
 
@@ -742,7 +742,7 @@ class Quoine(object):
         return self.create_order(order_type, product_id, self.SIDE_SELL, quantity, price_range=price_range)
 
     def create_margin_order(self, order_type, product_id, side, quantity, price, leverage_level=2, price_range=None, funding_currency=None, order_direction=None):
-        """Create a margin order
+        """Create a leveraged margin order of type limit, market, or market with range
 
         Only available on Quoinex
 
