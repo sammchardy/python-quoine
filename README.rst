@@ -94,4 +94,4 @@ If this library helped you out feel free to donate.
 Other Exchanges
 ---------------
 
-If you use Binance check out my `python-binance <https://github.com/sammchardy/python-binance>`_ library.
+If you use `Binance <https://www.binance.com/register.html?ref=10099792>`_ check out my `python-binance <https://github.com/sammchardy/python-binance>`_ library.
