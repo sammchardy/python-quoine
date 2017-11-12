@@ -10,7 +10,7 @@ setup(
     author='Sam McHardy',
     license='MIT',
     author_email='',
-    install_requires=['requests', 'six', 'Twisted', 'pyOpenSSL', 'autobahn', 'service-identity'],
+    install_requires=['requests', 'six', 'jwt'],
     keywords='quoine quoinex qryptos exchange rest api bitcoin ethereum btc eth neo usd jpy',
     classifiers=[
           'Intended Audience :: Developers',
