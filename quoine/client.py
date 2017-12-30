@@ -881,7 +881,7 @@ class Quoine(object):
 
         """
 
-        return self._get('orders/{}'.format(order_id))
+        return self._get('orders/{}'.format(order_id), True)
 
     def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False, limit=None, page=None):
         """Get a list of orders using filters with pagination
