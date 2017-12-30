@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v0.1.2 - 2017-12-30
+^^^^^^^^^^^^^^^^^^^
+
+**Fixed**
+
+- Fix to call signed functions properly
+
 v0.1.1 - 2017-11-11
 ^^^^^^^^^^^^^^^^^^^
 

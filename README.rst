@@ -1,5 +1,5 @@
 ===============================
-Welcome to python-quoine v0.1.1
+Welcome to python-quoine v0.1.2
 ===============================
 
 .. image:: https://img.shields.io/pypi/v/python-quoine.svg
