@@ -881,7 +881,7 @@ class Quoine(object):
 
         """
 
-        return self._get('orders/{}'.format(order_id))
+        return self._get('orders/{}'.format(order_id), True)
 
     def get_orders(self, funding_currency=None, product_id=None, status=None, with_details=False, limit=None, page=None):
         """Get a list of orders using filters with pagination
@@ -958,7 +958,7 @@ class Quoine(object):
         if page:
             data['page'] = page
 
-        return self._get('orders', data=data)
+        return self._get('orders', True, data=data)
 
     def cancel_order(self, order_id):
         """Cancel an order
@@ -1000,7 +1000,7 @@ class Quoine(object):
 
         """
 
-        return self._put('orders/{}/cancel'.format(order_id))
+        return self._put('orders/{}/cancel'.format(order_id), True)
 
     def update_live_order(self, order_id, quantity=None, price=None):
         """Update a live order
@@ -1057,7 +1057,7 @@ class Quoine(object):
         if price:
             data['order']['price'] = price
 
-        return self._put('orders/{}'.format(order_id), json=data)
+        return self._put('orders/{}'.format(order_id), True, json=data)
 
     def get_order_trades(self, order_id):
         """Get an orders trades
@@ -1109,7 +1109,7 @@ class Quoine(object):
 
         """
 
-        return self._get('orders/{}/trades'.format(order_id))
+        return self._get('orders/{}/trades'.format(order_id), True)
 
     # Executions Endpoints
 
