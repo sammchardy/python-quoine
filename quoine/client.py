@@ -95,19 +95,19 @@ class Quoine(object):
         return '/{}{}'.format(path, query_string)
 
     def _create_uri(self, path):
-        return '{}{}'.format(self.API_URL, path)
+        return '{}/{}'.format(self.API_URL, path)
 
     def _request(self, method, path, signed, **kwargs):
 
         kwargs['data'] = kwargs.get('data', {})
         kwargs['headers'] = kwargs.get('headers', {})
 
-        path = self._create_path(method, path, kwargs['data'])
+        sig_path = self._create_path(method, path, kwargs['data'])
         uri = self._create_uri(path)
 
         if signed:
             # generate signature
-            kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(path)
+            kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(sig_path)
 
         if kwargs['data'] and method == 'get':
             kwargs['params'] = kwargs['data']
