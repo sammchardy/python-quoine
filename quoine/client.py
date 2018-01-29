@@ -107,7 +107,7 @@ class Quoine(object):
 
         if signed:
             # generate signature
-            kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(path)
+            kwargs['headers']['X-Quoine-Auth'] = self._generate_signature(sig_path)
 
         if kwargs['data'] and method == 'get':
             kwargs['params'] = kwargs['data']
