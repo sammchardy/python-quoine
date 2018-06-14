@@ -825,6 +825,8 @@ class Quoine(object):
             data['order']['price_range'] = price_range
         if funding_currency:
             data['order']['funding_currency'] = funding_currency
+        if order_direction:
+            data['order']['order_direction'] = order_direction
         return self._post('orders', True, json=data)
 
     def get_order(self, order_id):
