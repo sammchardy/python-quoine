@@ -19,6 +19,7 @@ class Quoine(object):
     API_URL = 'https://api.quoine.com'
     API_VERSION = '2'
     VENDOR_ID = None
+    AMAZON_API_KEY = None
     LANGUAGE = 'en'
 
     SIDE_BUY = 'buy'
@@ -43,7 +44,7 @@ class Quoine(object):
     MARGIN_ORDER_DIRECTION_TWO = 'two_direction'
     MARGIN_ORDER_DIRECTION_NET = 'netout'
 
-    def __init__(self, api_token_id, api_secret, vendor_id=None, language=None):
+    def __init__(self, api_token_id, api_secret, vendor_id=None, language=None, amazon_api_key=None):
         """Quoine API Client constructor
 
         :param api_token_id: Api Token Id
@@ -54,6 +55,8 @@ class Quoine(object):
         :type vendor_id: str.
         :param language: Langague optional
         :type language: str.
+        :param amazon_api_key: Amazon api key optional
+        :type amazon_api_key: str.
 
         """
 
@@ -63,6 +66,8 @@ class Quoine(object):
             self.VENDOR_ID = vendor_id
         if language:
             self.LANGUAGE = language
+        if amazon_api_key:
+            self.AMAZON_API_KEY = amazon_api_key
         self.session = self._init_session()
 
     def _init_session(self):
@@ -75,6 +80,8 @@ class Quoine(object):
                    'Accept-Language': self.LANGUAGE}
         if self.VENDOR_ID:
             headers['X-Quoine-Vendor-ID'] = self.VENDOR_ID
+        if self.AMAZON_API_KEY:
+            headers['x-api-key'] = self.AMAZON_API_KEY
         session.headers.update(headers)
         return session
 
@@ -1942,3 +1949,7 @@ class Quoinex(Quoine):
 
 class Qryptos(Quoinex):
     API_URL = 'https://api.qryptos.com'
+
+
+class Liquid(Quoinex):
+    API_URL = 'https://api.liquid.com'
